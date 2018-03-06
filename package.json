@@ -1,0 +1,23 @@
+{
+  "name": "osg-serializer-js",
+  "version": "0.0.1",
+  "description": "Module for reading and writing OpenSceneGraph 3D models. file type supported: .osgb .osgt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "OpenSceneGraph",
+    "osgb",
+    "osgt"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eran-pinhas/osg-serializer-js.git"
+  },
+  "author": "Eran Pinhas",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^1.4.1"
+  }
+}
