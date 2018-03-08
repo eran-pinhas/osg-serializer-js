@@ -1,5 +1,6 @@
 const ObjectWrapperManager = require('../ObjectWrapperManager');
 const VectorSerializer = require('./Types/VectorSerializer');
+const ObjectSerializer = require('./Types/ObjectSerializer');
 const UserSerializer = require('./Types/UserSerializer');
 const ObjectWrapper = require('../ObjectWrapper');
 const Geometry = require('../OsgTypes/Geometry');
@@ -109,6 +110,8 @@ function readFastPathHint(inputStream, Geometry) {
 }
 
 objectWrapper.addSerializer(new VectorSerializer("PrimitiveSetList", "PrimitiveSet"));
+
+// Until Version 111
 objectWrapper.addSerializer(new UserSerializer("VertexData", getReadArrayDataFunction("VertexArray"), {maxVersion: 111}));
 objectWrapper.addSerializer(new UserSerializer("NormalData", getReadArrayDataFunction("NormalArray"), {maxVersion: 111}));
 objectWrapper.addSerializer(new UserSerializer("ColorData", getReadArrayDataFunction("ColorArray"), {maxVersion: 111}));
@@ -118,5 +121,13 @@ objectWrapper.addSerializer(new UserSerializer("TexCoordData", getReadArrayListF
 objectWrapper.addSerializer(new UserSerializer("VertexAttribData", getReadArrayListFunction("VertexAttribArray"), {maxVersion: 111}));
 objectWrapper.addSerializer(new UserSerializer("FastPathHint ", readFastPathHint, {maxVersion: 111}));
 
+// From Version 112
+objectWrapper.addSerializer(new ObjectSerializer("VertexArray",null,{minVersion: 112}));
+objectWrapper.addSerializer(new ObjectSerializer("NormalArray",null,{minVersion: 112}));
+objectWrapper.addSerializer(new ObjectSerializer("ColorArray",null,{minVersion: 112}));
+objectWrapper.addSerializer(new ObjectSerializer("SecondaryColorArray",null,{minVersion: 112}));
+objectWrapper.addSerializer(new ObjectSerializer("FogCoordArray",null,{minVersion: 112}));
+objectWrapper.addSerializer(new VectorSerializer("TexCoordArrayList", "Array",{minVersion: 112}));
+objectWrapper.addSerializer(new VectorSerializer("VertexAttribArrayList", "Array",{minVersion: 112}));
 
 ObjectWrapperManager.addWrapper(objectWrapper);
