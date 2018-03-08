@@ -1,15 +1,15 @@
 function notImplemented(name,funcName){
-    throw "function " + funcName + "Not Implemented in " + name
+    throw "function " + funcName + " Not Implemented in " + name
 }
 class StreamOperator {
     constructor(name){
         this.name = name;
     }
     readChar(){notImplemented(this.name,"readChar")}
-    readUByte(){notImplemented(this.name,"readUByte")} // TODO implement in Ascii and binary
-    readByte(){notImplemented(this.name,"readByte")} // TODO implement in Ascii and binary
-    readShort(){notImplemented(this.name,"readShort")} // TODO implement in Ascii and binary
-    readUShort(){notImplemented(this.name,"readUShort")} // TODO implement in Ascii and binary
+    readUByte(){notImplemented(this.name,"readUByte")} // TODO implement in binary
+    readByte(){notImplemented(this.name,"readByte")} // TODO implement in binary
+    readShort(){notImplemented(this.name,"readShort")} // TODO implement in binary
+    readUShort(){notImplemented(this.name,"readUShort")} // TODO implement in binary
     readInt(){notImplemented(this.name,"readInt")}
     readUInt(){notImplemented(this.name,"readUInt")}
     readBool(){notImplemented(this.name,"readBool")}

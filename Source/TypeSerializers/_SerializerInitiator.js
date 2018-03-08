@@ -6,6 +6,7 @@ require("./Group");
 require("./Material");
 require("./Node");
 require("./Object");
+require("./ShadeModel");
 require("./StateAttribute");
 require("./StateSet");
 require("./UserDataContainer");

@@ -26,6 +26,16 @@ function skipGaps(that) {
     }
 }
 
+function readIntNumber(that){
+    let word = that.readString();
+    return parseInt(word);
+}
+
+function readFloatNumber(that){
+    let word = that.readString();
+    return parseFloat(word);
+}
+
 function isEndlChar(buffer, index) {
     index = index || 0;
     let charCode;
@@ -49,16 +59,6 @@ class AsciiStreamOperator extends StreamOperator {
         return false;
     }
 
-    readBool() {
-        let boolString = this.readString();
-        return (boolString === "TRUE");
-    }
-
-    readUInt() {
-        let word = this.readString();
-        return Math.abs(parseInt(word));
-    }
-
     advanceToCurrentEndBracket() {
         let passString, blocks = 0;
         while (this._position < this._buffer.length) {
@@ -73,18 +73,41 @@ class AsciiStreamOperator extends StreamOperator {
         }
     }
 
+    readBool() {
+        let boolString = this.readString();
+        return (boolString === "TRUE");
+    }
+
+    readUInt() {
+        return readIntNumber(this);
+    }
+
     readInt() {
-        let word = this.readString();
-        return parseInt(word);
-    };
+        return readIntNumber(this);
+    }
+
+    readUShort() {
+        return readIntNumber(this);
+    }
+
+    readShort() {
+        return readIntNumber(this);
+    }
+
+    readUByte() {
+        return readIntNumber(this);
+    }
+
+    readByte() {
+        return readIntNumber(this);
+    }
 
     readFloat() {
-        let word = this.readString();
-        return parseFloat(word);
+        return readFloatNumber(this);
     }
 
     readDouble() {
-        return this.readFloat();
+        return readFloatNumber(this);
     }
 
     readHex() {

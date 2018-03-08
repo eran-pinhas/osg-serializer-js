@@ -49,7 +49,7 @@ class BinaryStreamOperator extends StreamOperator{
                     this._blockSizes.push(size);
                 }
             }
-            else if (mark.name === "}" && _beginPositions.size() > 0) {
+            else if (mark.name === "}" && this._beginPositions.length > 0) {
                 this._beginPositions.pop();
                 this._blockSizes.pop();
             }
@@ -63,14 +63,34 @@ class BinaryStreamOperator extends StreamOperator{
         return (ch !== 0)
     }
 
-    readUInt() {
-        this._position += 4;
-        return this._buffer.readUInt32LE(this._position - 4);
+    readByte() {
+        this._position += 1;
+        return this._buffer.readInt8(this._position - 1);
+    }
+
+    readUByte() {
+        this._position += 1;
+        return this._buffer.readUInt8(this._position - 1);
+    }
+
+    readShort() {
+        this._position += 2;
+        return this._buffer.readInt16LE(this._position - 2);
+    }
+
+    readUShort() {
+        this._position += 2;
+        return this._buffer.readUInt16LE(this._position - 2);
     }
 
     readInt() {
         this._position += 4;
         return this._buffer.readInt32LE(this._position - 4);
+    }
+
+    readUInt() {
+        this._position += 4;
+        return this._buffer.readUInt32LE(this._position - 4);
     }
 
     readFloat() {

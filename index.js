@@ -5,13 +5,13 @@ const BinaryStreamOperator = require('./Source/Input/BinaryStreamOperator');
 const AsciiStreamOperator = require('./Source/Input/AsciiStreamOperator');
 const Log = require('./Source/Common/Log');
 
-Log.setLogOff();
+Log.setLogError();
 
 //let filePath = "Samples/torus.osgt";
 //let filePath = "Samples/cow.osgt";
 //let filePath = "Samples/tree4.osgb";
-//let filePath = "Samples/grass1.osgb";
-let filePath = "Samples/streetlight.osgb";
+let filePath = "Samples/grass1.osgb";
+//let filePath = "Samples/streetlight.osgb";
 //let filePath = "Samples/cessna.osgb";
 
 let buf = fs.readFileSync(filePath);
