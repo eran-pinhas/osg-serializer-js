@@ -1,6 +1,6 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const UserSerializer = require('./Types/UserSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const UserSerializer = require('../Serializer/UserSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const Group = require('../OsgTypes/Group');
 
 let objectWrapper = new ObjectWrapper(

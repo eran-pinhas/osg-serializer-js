@@ -1,9 +1,9 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const ObjectCallbackSerializer = require('./Types/ObjectCallbackSerializer');
-const ObjectSerializer = require('./Types/ObjectSerializer');
-const UserSerializer = require('./Types/UserSerializer');
-const PropByValSerializer = require('./Types/PropByValSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const ObjectCallbackSerializer = require('../Serializer/ObjectCallbackSerializer');
+const ObjectSerializer = require('../Serializer/ObjectSerializer');
+const UserSerializer = require('../Serializer/UserSerializer');
+const PropByValSerializer = require('../Serializer/PropByValSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const Node = require('../OsgTypes/Node');
 
 let objectWrapper = new ObjectWrapper(

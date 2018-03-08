@@ -1,14 +1,14 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const UserSerializer = require('./Types/UserSerializer');
-const EnumSerializer = require('./Types/EnumSerializer');
-const PropByValSerializer = require('./Types/PropByValSerializer');
-const ObjectCallbackSerializer = require('./Types/ObjectCallbackSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const UserSerializer = require('../Serializer/UserSerializer');
+const EnumSerializer = require('../Serializer/EnumSerializer');
+const PropByValSerializer = require('../Serializer/PropByValSerializer');
+const ObjectCallbackSerializer = require('../Serializer/ObjectCallbackSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const StateSet = require('../OsgTypes/StateSet');
 const RenderingHintEnum = require('../Enum/StateSet_RenderingHint');
 const RenderBinModeEnum = require('../Enum/StateSet_RenderBinMode');
 const StateAttributeValueEnum = require('../Enum/StateAttribute_Value');
-const DataTypes = require('../DataTypes');
+const DataTypes = require('../Common/DataTypes');
 let objectWrapper = new ObjectWrapper(
     "osg::StateSet",
     ["osg::Object", "osg::StateSet"],

@@ -1,5 +1,5 @@
 StreamOperator = require('./StreamOperator');
-Log = require('../Log');
+Log = require('../Common/Log');
 
 class BinaryStreamOperator extends StreamOperator{
     constructor(buffer, initPosition) {

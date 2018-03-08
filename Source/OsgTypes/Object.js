@@ -1,5 +1,5 @@
 // todo rename to SsgClass
-const Log = require('../Log');
+const Log = require('../Common/Log');
 class ObjectClass{
     constructor() {
         this.Name = "";

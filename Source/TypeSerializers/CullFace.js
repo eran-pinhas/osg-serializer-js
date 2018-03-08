@@ -1,6 +1,6 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const EnumSerializer = require('./Types/EnumSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const EnumSerializer = require('../Serializer/EnumSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const CullFace = require('../OsgTypes/CullFace');
 const FaceMode = require('../Enum/CullFace_FaceMode');
 

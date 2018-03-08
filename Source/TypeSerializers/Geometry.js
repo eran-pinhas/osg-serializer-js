@@ -1,11 +1,11 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const VectorSerializer = require('./Types/VectorSerializer');
-const ObjectSerializer = require('./Types/ObjectSerializer');
-const UserSerializer = require('./Types/UserSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const VectorSerializer = require('../Serializer/VectorSerializer');
+const ObjectSerializer = require('../Serializer/ObjectSerializer');
+const UserSerializer = require('../Serializer/UserSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const Geometry = require('../OsgTypes/Geometry');
 const OsgArray = require('../OsgTypes/OsgArray');
-const Associate = require('../Associate');
+const Associate = require('../Serializer/Associate');
 const DefaultUserDataContainer = require('../OsgTypes/DefaultUserDataContainer');
 
 let objectWrapper = new ObjectWrapper(

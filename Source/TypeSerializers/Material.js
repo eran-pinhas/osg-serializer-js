@@ -1,7 +1,7 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const EnumSerializer = require('./Types/EnumSerializer');
-const UserSerializer = require('./Types/UserSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const EnumSerializer = require('../Serializer/EnumSerializer');
+const UserSerializer = require('../Serializer/UserSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const Material = require('../OsgTypes/Material');// = require('../OsgTypes/Material');
 const ColorMode = require('../Enum/Material_ColorMode');// = require('../OsgTypes/Material');
 

@@ -1,6 +1,6 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const ObjectCallbackSerializer = require('./Types/ObjectCallbackSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const ObjectCallbackSerializer = require('../Serializer/ObjectCallbackSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const StateAttribute = require('../OsgTypes/StateAttribute');
 
 let objectWrapper = new ObjectWrapper(

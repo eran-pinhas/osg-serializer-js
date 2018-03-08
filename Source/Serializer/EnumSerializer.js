@@ -1,4 +1,4 @@
-const Log = require('../../Log');
+const Log = require('../Common/Log');
 const BaseSerializer = require('./BaseSerializer');
 
 function reverseMap(map) {

@@ -1,14 +1,18 @@
 const fs = require('fs');
-const InputStream = require('./InputStream');
-const DataTypes = require('./DataTypes');
-const BinaryStreamOperator = require('./Input/BinaryStreamOperator');
-const AsciiStreamOperator = require('./AsciiStreamOperator');
+const InputStream = require('./Source/Input/InputStream');
+const DataTypes = require('./Source/Common/DataTypes');
+const BinaryStreamOperator = require('./Source/Input/BinaryStreamOperator');
+const AsciiStreamOperator = require('./Source/Input/AsciiStreamOperator');
+const Log = require('./Source/Common/Log');
 
-//let filePath = "C:\\Users\\Eran\\Desktop\\OpenSceneGraph-Data-master\\cow.osgt";
-//let filePath = "C:\\Users\\Eran\\Downloads\\tree4.osgb";
-//let filePath = "C:\\Users\\Eran\\Downloads\\grass1.osgb";
-let filePath = "C:\\Users\\Eran\\Downloads\\streetlight.osgb";
-//let filePath = "C:\\Users\\Eran\\Downloads\\cessna.osgb";
+Log.setLogOff();
+
+//let filePath = "Samples/torus.osgt";
+//let filePath = "Samples/cow.osgt";
+//let filePath = "Samples/tree4.osgb";
+//let filePath = "Samples/grass1.osgb";
+let filePath = "Samples/streetlight.osgb";
+//let filePath = "Samples/cessna.osgb";
 
 let buf = fs.readFileSync(filePath);
 
@@ -31,7 +35,7 @@ if (low === OSG_HEADER_LOW && high === OSG_HEADER_HIGH) {
     isBinary = true;
     reader = new BinaryStreamOperator(buf, 8);
 
-    console.log("OSGB");
+    //console.log("OSGB");
     let useCompressSource, useRobustBinaryFormat;
     type = reader.readUInt();// buf.readUInt32LE(ReadPosition);
     openscenegraph_soversion = reader.readUInt();
@@ -41,9 +45,9 @@ if (low === OSG_HEADER_LOW && high === OSG_HEADER_HIGH) {
     useRobustBinaryFormat = (attributes & 0x4) !== 0;
     reader.supportBinaryBrackets = useRobustBinaryFormat;
 
-    console.log("binary_hasDomainVersion", hasDomainVersion);
-    console.log("binary_useCompressSource", useCompressSource);
-    console.log("binary_useRobustBinaryFormat", useRobustBinaryFormat);
+    //console.log("binary_hasDomainVersion", hasDomainVersion);
+    //console.log("binary_useCompressSource", useCompressSource);
+    //console.log("binary_useRobustBinaryFormat", useRobustBinaryFormat);
 
     let next = reader.readString();
     if (next !== "0") {
@@ -74,9 +78,11 @@ if (hasDomainVersion) {
     return;
 }
 reader.version = openscenegraph_soversion;
-console.log("type", Object.keys(WriteType).filter(key => WriteType[key] === type)[0]);
-console.log("version", openscenegraph_soversion);
+//console.log("type", Object.keys(WriteType).filter(key => WriteType[key] === type)[0]);
+//console.log("version", openscenegraph_soversion);
 
 let is = new InputStream(reader);
-console.log("RESTULT:");
-console.log(is.readObject());
+//console.log("RESTULT:");
+let startTime = new Date().getTime();
+let obj = is.readObject();
+console.log( "timeElapsed:",new Date().getTime()-startTime);

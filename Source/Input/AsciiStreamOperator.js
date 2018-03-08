@@ -1,6 +1,6 @@
-const StreamOperator = require('./Input/StreamOperator');
-const GLEnum = require('./Enum/GLEnum');
-const Log = require('./Log');
+const StreamOperator = require('./StreamOperator');
+const GLEnum = require('../Enum/GLEnum');
+const Log = require('../Common/Log');
 
 const separatorChars = "\0\t\r\n\f ";
 const separatorCharsObject = {};

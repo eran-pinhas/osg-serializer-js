@@ -1,9 +1,9 @@
-require('./Serializers/_SerializerInitiator');
-const ObjectWrapperManager = require('./ObjectWrapperManager');
-const DataTypes = require('./DataTypes');
-const Constants = require('./Constants');
-const {ObjectProperty} = require('./DataTypes')
-const Log = require('./Log');
+require('../TypeSerializers/_SerializerInitiator');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const DataTypes = require('../Common/DataTypes');
+const Constants = require('../Common/Constants');
+const {ObjectProperty} = require('../Common/DataTypes')
+const Log = require('../Common/Log');
 
 class InputStream {
     constructor(inputOperator) {

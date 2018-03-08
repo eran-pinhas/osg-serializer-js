@@ -1,6 +1,6 @@
 const assert = require('assert');
 const Associate = require('./Associate');
-const Log = require('./Log');
+const Log = require('../Common/Log');
 
 class ObjectWrapper {
     /**

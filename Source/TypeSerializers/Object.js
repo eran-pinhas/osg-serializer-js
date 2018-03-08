@@ -1,9 +1,9 @@
-const ObjectWrapperManager = require('../ObjectWrapperManager');
-const EnumSerializer = require('./Types/EnumSerializer');
-const ObjectSerializer = require('./Types/ObjectSerializer');
-const UserSerializer = require('./Types/UserSerializer');
-const PropByValSerializer = require('./Types/PropByValSerializer');
-const ObjectWrapper = require('../ObjectWrapper');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
+const EnumSerializer = require('../Serializer/EnumSerializer');
+const ObjectSerializer = require('../Serializer/ObjectSerializer');
+const UserSerializer = require('../Serializer/UserSerializer');
+const PropByValSerializer = require('../Serializer/PropByValSerializer');
+const ObjectWrapper = require('../Serializer/ObjectWrapper');
 const ObjectClass = require('../OsgTypes/Object');
 const ObjectDataVariance = require('../Enum/ObjectData_Variance');
 
