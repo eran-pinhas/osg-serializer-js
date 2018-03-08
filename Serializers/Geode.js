@@ -11,13 +11,11 @@ let objectWrapper = new ObjectWrapper(
 
 function readDrawables(inputStream,geodeNode){
     let size = inputStream.inputOperator.readUInt();
-    console.log(size);
-    console.log(geodeNode);
     inputStream.readBeginBracket();
     for (let i=0;i<size;i++){
         let obj = inputStream.readObjectOfType("osg::Drawable");
         if (obj) {
-            geodeNode.children.push(obj);
+            geodeNode.Children.push(obj);
         }
     }
     inputStream.readEndBracket();

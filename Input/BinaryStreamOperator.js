@@ -1,4 +1,5 @@
 StreamOperator = require('./StreamOperator');
+Log = require('../Log');
 
 class BinaryStreamOperator extends StreamOperator{
     constructor(buffer, initPosition) {
@@ -56,8 +57,10 @@ class BinaryStreamOperator extends StreamOperator{
     }
 
     readBool() {
-        let ch = this.readChar();
-        return (ch.charCodeAt(0) !== 0)
+        let ch = this.readChar().charCodeAt(0);
+        if(ch > 1)
+            Log.warn("found boolean who is not 0 or 1 - "+ch+". may indicate failure in reading binary")
+        return (ch !== 0)
     }
 
     readUInt() {
@@ -72,12 +75,12 @@ class BinaryStreamOperator extends StreamOperator{
 
     readFloat() {
         this._position += 4;
-        return this._buffer.readDoubleLE(this._position - 4);
+        return this._buffer.readFloatLE(this._position - 4);
     }
 
     readDouble() {
-        this._position += 4;
-        return this._buffer.readFloatLE(this._position - 4);
+        this._position += 8;
+        return this._buffer.readDoubleLE(this._position - 4);
     }
 
     readChar() {
@@ -95,8 +98,8 @@ class BinaryStreamOperator extends StreamOperator{
         return this.readString();
     }
 
-    readGLenum(objectGLenum) {
-        objectGLenum.value = this.readUInt();
+    readGLEnum(objectGLEnum) {
+        objectGLEnum.value = this.readUInt();
     }
 
 }

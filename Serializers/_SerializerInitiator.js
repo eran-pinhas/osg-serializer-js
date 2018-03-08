@@ -1,9 +1,11 @@
+require("./CullFace");
+require("./Drawable");
+require("./Geode");
+require("./Geometry");
 require("./Group");
+require("./Material");
 require("./Node");
 require("./Object");
-require("./UserDataContainer");
-require("./Geode");
-require("./StateSet");
 require("./StateAttribute");
-require("./Material");
-require("./CullFace");
+require("./StateSet");
+require("./UserDataContainer");

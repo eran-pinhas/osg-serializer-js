@@ -28,8 +28,8 @@ function readModes(inputStream) {
     if (size > 0) {
         inputStream.readBeginBracket();
         for (let i = 0; i < size; i++) {
-            let mode = new DataTypes.ObjectGLenum();
-            inputStream.inputOperator.readGLenum(mode);
+            let mode = new DataTypes.ObjectGLEnum();
+            inputStream.inputOperator.readGLEnum(mode);
 
             modes.push({
                 key: mode.value,
@@ -48,11 +48,11 @@ function readAttributes(inputStream) {
         inputStream.readBeginBracket();
         for (let i = 0; i < size; i++) {
             let sa = inputStream.readObjectOfType("osg::StateAttribute");
-            inputStream.inputOperator.readObjectProperty(inputStream.PROPERTY.set("Value"));
+            inputStream.readProperty("Value");
             let value = readValue(inputStream);
             if (sa) {
                 attributes.push({
-                    key: sa.getTypeMemberPair(), // TODO getTypeMemberPair --> string
+                    key: sa.getTypeMemberPair(),
                     value: {
                         StateAttribute: sa,
                         Value: value
@@ -94,7 +94,7 @@ function readAttributeList(inputStream, stateSet) {
 function readTextureModeList(inputStream, stateSet) {
     let size = inputStream.inputOperator.readUInt();
     for (let i = 0; i < size; i++) {
-        inputStream.inputOperator.readObjectProperty(inputStream.PROPERTY.set("Data"));
+        inputStream.readProperty("Data");
         pushMany(stateSet.TextureModeList, readModes(inputStream))
     }
 }
@@ -103,9 +103,8 @@ function readTextureAttributeList(inputStream, stateSet) {
     let size = inputStream.inputOperator.readUInt();
     inputStream.readBeginBracket();
     for (let i = 0; i < size; i++) {
-        inputStream.readPropety("Data");
-        let attributes = readAttributes(inputStream); // TODO modes redundant
-        pushMany(stateSet.TextureAttributeList, attributes)
+        inputStream.readProperty("Data");
+        pushMany(stateSet.TextureAttributeList, readAttributes(inputStream))
     }
     inputStream.readEndBracket();
 }

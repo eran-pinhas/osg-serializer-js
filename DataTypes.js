@@ -1,4 +1,4 @@
-class ObjectGLenum {
+class ObjectGLEnum {
     constructor(_value) {
         this.value = _value || 0;
     }
@@ -23,7 +23,7 @@ class ObjectProperty {
         if (typeof _value === "string")
             this.name = _value;
         else if (typeof _value === "number")
-            this._value = _value;
+            this.value = _value;
         return this
     }
 }
@@ -31,5 +31,5 @@ class ObjectProperty {
 module.exports = {
     ObjectProperty,
     ObjectMark,
-    ObjectGLenum
+    ObjectGLEnum
 };

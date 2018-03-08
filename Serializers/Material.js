@@ -21,15 +21,15 @@ function readMaterialFunc(property, type){
             readerFunc = inputStream.inputOperator.readFloat.bind(inputStream.inputOperator);
         } else if(type === "Vec4f") {
             readerFunc = function () {
-                return inputStream.readVector("Float",4)
+                return inputStream.readVectorOfType(4,"Float");
             }
         } else {
             throw "serializeMaterial - type not supported"
         }
         let frontAndBack = inputStream.inputOperator.readBool();
-        inputStream.readPropety("Front");
+        inputStream.readProperty("Front");
         let value1 = readerFunc();
-        inputStream.readPropety("Back");
+        inputStream.readProperty("Back");
         let value2 = readerFunc();
         if(frontAndBack){
             material[property + "FrontAndBack"] = true;

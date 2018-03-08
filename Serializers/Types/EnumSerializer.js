@@ -1,58 +1,47 @@
 const Log = require('../../Log');
-const implementValidator = require('../../implementValidator');
+const BaseSerializer = require('./BaseSerializer');
 
-function reverseMap(map){
+function reverseMap(map) {
     ret = {};
     Object.keys(map).forEach(key => {
         let val = map[key];
-        if(ret[val])
-            Log("EnumSerializer: Duplicate value: " + ret[val] +", "+key);
+        if (ret[val])
+            Log.warn("EnumSerializer: Duplicate value: " + ret[val] + ", " + key);
         ret[val] = key;
-    })
+    });
     return ret;
 }
 
-function EnumSerializer(name,enumMap,defaultValue,options){
-    this._name = name;
-    this._defaultValue = defaultValue;
-    this._enumMap = enumMap;
-    this._reverseMap = reverseMap(enumMap);
-    this._options = options || {};
-}
+class EnumSerializer extends BaseSerializer {
 
-EnumSerializer.prototype.read = function(inputStream,object){
-    if ( inputStream.isBinary() )
-    {
-        let value = inputStream.inputOperator.readInt()
-        if(!this._reverseMap.hasOwnProperty(value)){
-            Log.warn("EnumSerializer: failed to find ENUM value " + value + " for serializer "+this._name + ". Setting to default value.")
-            value = this._defaultValue;
-        }
-        object[this._name] = value;
+    constructor(name, enumMap, defaultValue, options) {
+        super(name, options);
+
+        this._defaultValue = defaultValue;
+        this._enumMap = enumMap;
+        this._reverseMap = reverseMap(enumMap);
     }
-    else if ( inputStream.inputOperator.matchString(this._name) ){
-        let key = inputStream.inputOperator.readString();
-        let value = this._enumMap[value];
-        if(!this._enumMap.hasOwnProperty(key)){
-            Log.warn("EnumSerializer: failed to find ENUM key " + key + " for serializer "+this._name + ". Setting to default value.")
-            value = this._defaultValue;
+
+    /** @override */
+    read(inputStream, object) {
+        if (inputStream.isBinary()) {
+            let value = inputStream.inputOperator.readInt()
+            if (!this._reverseMap.hasOwnProperty(value)) {
+                Log.warn("EnumSerializer: failed to find ENUM value " + value + " for serializer " + this.getName() + ". Setting to default value.")
+                value = this._defaultValue;
+            }
+            object[this.getName()] = value;
         }
-        object[this._name] = value;
+        else if (inputStream.inputOperator.matchString(this.getName())) {
+            let key = inputStream.inputOperator.readString();
+            let value = this._enumMap[value];
+            if (!this._enumMap.hasOwnProperty(key)) {
+                Log.warn("EnumSerializer: failed to find ENUM key " + key + " for serializer " + this.getName() + ". Setting to default value.")
+                value = this._defaultValue;
+            }
+            object[this.getName()] = value;
+        }
     }
 }
-
-EnumSerializer.prototype.getName = function() {
-    return this._name
-} 
-
-EnumSerializer.prototype.getMinVersion = function() {
-    return this._options.minVersion || 0;
-} 
-
-EnumSerializer.prototype.getMaxVersion = function() {
-    return this._options.maxVersion || 1000000000;
-} 
-
-implementValidator(EnumSerializer,"serializer")
 
 module.exports = EnumSerializer;

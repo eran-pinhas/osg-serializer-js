@@ -21,7 +21,7 @@ function UserDataReader(){
 objectWrapper.addSerializer(new PropByValSerializer("String","Name",""));
 objectWrapper.addSerializer(new EnumSerializer("DataVariance",ObjectDataVariance,ObjectDataVariance.UNSPECIFIED));
 
-objectWrapper.addSerializer(new UserSerializer("UserData",UserDataReader, {maxVersion:77}));
-objectWrapper.addSerializer(new ObjectSerializer("UserDataContainer",null, {minVersion:78}));
+objectWrapper.addSerializer(new UserSerializer("UserData",UserDataReader, {maxVersion:76}));
+objectWrapper.addSerializer(new ObjectSerializer("UserDataContainer",null, {minVersion:77}));
 
 ObjectWrapperManager.addWrapper(objectWrapper);

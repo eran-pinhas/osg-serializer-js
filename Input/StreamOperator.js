@@ -5,17 +5,23 @@ class StreamOperator {
     constructor(name){
         this.name = name;
     }
-    readUInt(){notImplemented(this.name,"readUInt")}
-    readInt(){notImplemented(this.name,"readInt")}
     readChar(){notImplemented(this.name,"readChar")}
+    readUByte(){notImplemented(this.name,"readUByte")} // TODO implement in Ascii and binary
+    readByte(){notImplemented(this.name,"readByte")} // TODO implement in Ascii and binary
+    readShort(){notImplemented(this.name,"readShort")} // TODO implement in Ascii and binary
+    readUShort(){notImplemented(this.name,"readUShort")} // TODO implement in Ascii and binary
+    readInt(){notImplemented(this.name,"readInt")}
+    readUInt(){notImplemented(this.name,"readUInt")}
     readBool(){notImplemented(this.name,"readBool")}
     readString(){notImplemented(this.name,"readString")}
-    readObjectProperty(){notImplemented(this.name,"readObjectProperty")}
-    readObjectMark(){notImplemented(this.name,"readObjectMark")}
+    /** @param {ObjectProperty} prop */
+    readObjectProperty(prop){notImplemented(this.name,"readObjectProperty")}
+    /** @param {ObjectMark} mark */
+    readObjectMark(mark){notImplemented(this.name,"readObjectMark")}
     advanceToCurrentEndBracket(){notImplemented(this.name,"advanceToCurrentEndBracket")}
     isBinary(){notImplemented(this.name,"isBinary")}
     readWrappedString(){notImplemented(this.name,"readWrappedString")}
-    readGLenum(){notImplemented(this.name,"readGLenum")}
+    readGLEnum(objectGLEnum){notImplemented(this.name,"readGLenum")}
     readFloat(){notImplemented(this.name,"readFloat")}
     readDouble(){notImplemented(this.name,"readDouble")}
 }

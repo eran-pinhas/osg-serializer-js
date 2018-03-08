@@ -149,21 +149,22 @@ class AsciiStreamOperator extends StreamOperator {
             this.readString();
         }
     }
-    readGLenum(objectGLenum) {
+    readGLEnum(objectGLEnum) {
         let enumString = this.readString();
-        if (!objectGLenum.hasOwnProperty(enumString))
-            Log.warn("readGLenum: " + enumString + " enum not found");
-        objectGLenum.value = GLEnum[enumString];
+        if (!objectGLEnum.hasOwnProperty(enumString))
+            Log.warn("readGLEnum: " + enumString + " enum not found");
+        objectGLEnum.value = GLEnum[enumString];
     }
     readObjectMark(mark) {
         let word = this.readString();
         if (mark.name !== word) {
-            console.log("AsciiStreamOperator.readObjectMark mismatch: expecting " + mark.name + ", actual: " + word)
+            Log.warn("AsciiStreamOperator.readObjectMark mismatch: expecting " + mark.name + ", actual: " + word)
         }
     }
     readObjectProperty(prop) {
         let value = 0, enumString = this.readString();
         if (prop.mapProperty) {
+            // TODO
             throw "Unimplemented Method" //https://github.com/openscenegraph/OpenSceneGraph/blob/master/include/osgDB/ObjectWrapper#L179
         } else {
             if (prop.name !== enumString)

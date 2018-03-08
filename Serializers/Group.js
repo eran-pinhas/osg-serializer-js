@@ -11,13 +11,11 @@ let objectWrapper = new ObjectWrapper(
 
 function readChildren(inputStream,groupNode){
     let size = inputStream.inputOperator.readUInt();
-    console.log(size);
-    console.log(groupNode);
     inputStream.readBeginBracket();
     for (let i=0;i<size;i++){
         let obj = inputStream.readObject();
         if (obj) {
-            groupNode.children.push(obj);
+            groupNode.Children.push(obj);
         }
     }
     inputStream.readEndBracket();

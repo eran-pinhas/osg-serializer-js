@@ -13,12 +13,12 @@ let objectWrapper = new ObjectWrapper(
 );
 
 function readInitialBound(inputStream, node) {
-
+// todo check if readVectorOfType is right
     let center, radius;
     inputStream.readBeginBracket();
-    inputStream.inputOperator.readObjectProperty(inputStream.PROPERTY.set("Center"));
-    center = inputStream.readVector("Double",3);
-    inputStream.inputOperator.readObjectProperty(inputStream.PROPERTY.set("Radius"));
+    inputStream.readProperty("Center");
+    center = inputStream.readVectorOfType(3,"Double");
+    inputStream.readProperty("Radius");
     radius = inputStream.inputOperator.readDouble();
     inputStream.readEndBracket();
 
@@ -30,7 +30,6 @@ function readInitialBound(inputStream, node) {
 
 function readDescriptions(inputStream, node) {
     let size = inputStream.inputOperator.readUInt();
-    console.log(size);
     for (let i = 0; i < size; ++i) {
         let value = inputStream.inputOperator.readWrappedString();
         node.descriptions.push(value);
@@ -45,7 +44,7 @@ objectWrapper.addSerializer(new ObjectCallbackSerializer("EventCallback"));
 objectWrapper.addSerializer(new ObjectCallbackSerializer("CullCallback"));
 objectWrapper.addSerializer(new PropByValSerializer("Bool", "CullingActive", true));
 objectWrapper.addSerializer(new PropByValSerializer("HEXINT", "NodeMask", 0xffffffff));
-objectWrapper.addSerializer(new UserSerializer("Descriptions", readDescriptions, {maxVersion: 77}));
+objectWrapper.addSerializer(new UserSerializer("Descriptions", readDescriptions, {maxVersion: 76}));
 objectWrapper.addSerializer(new ObjectSerializer("StateSet", null));
 
 ObjectWrapperManager.addWrapper(objectWrapper);

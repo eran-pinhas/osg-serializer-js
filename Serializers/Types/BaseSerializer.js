@@ -1,7 +1,7 @@
 class BaseSerializer {
     /**
      * @constructor
-     * @param name
+     * @param {string} name
      * @param options
      * @param {number} options.minVersion first osgb/osgb version in which this serializer is defind
      * @param {number} options.maxVersion last osgb/osgb version in which this serializer is defind
@@ -23,7 +23,7 @@ class BaseSerializer {
      *
      * @returns {number}
      */
-    getMinVersion() {
+    getMinVersion() { // TODO replace getMinVersion & getMaxVersion --> is supported in version
         return this._options.minVersion || 0;
     }
 
@@ -38,7 +38,7 @@ class BaseSerializer {
     /**
      *
      * @param {InputStream} inputStream
-     * @param {object} object
+     * @param {ObjectClass} object
      */
     read (inputStream,object){
         throw "BaseSerializer.read not implemented";

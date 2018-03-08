@@ -1,0 +1,1 @@
+osgconv=====For the non OSG freaks I have added here a directory of the osgconv tool run it using `osgconv.exe inputfile outputfile`
