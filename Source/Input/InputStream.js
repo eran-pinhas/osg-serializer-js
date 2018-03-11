@@ -2,8 +2,15 @@ require('../TypeSerializers/_SerializerInitiator');
 const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
 const DataTypes = require('../Common/DataTypes');
 const Constants = require('../Common/Constants');
-const {ObjectProperty} = require('../Common/DataTypes')
+const Image = require('../OsgTypes/Image');
+const {ObjectProperty} = require('../Common/DataTypes');
 const Log = require('../Common/Log');
+const Base64Encoder = require('../Common/Base64Encoder');
+
+const IMAGE_INLINE_DATA = 0;
+const IMAGE_INLINE_FILE = 1;
+const IMAGE_EXTERNAL = 2;
+const IMAGE_WRITE_OUT = 3;
 
 class InputStream {
     constructor(inputOperator) {
@@ -167,7 +174,7 @@ class InputStream {
     }
 
     readVectorOfType(size, type) {
-        this.readVectorFromReader(size, this.getTypeReader(type));
+        return this.readVectorFromReader(size, this.getTypeReader(type));
     }
 
     readArray() {
@@ -317,7 +324,7 @@ class InputStream {
             if (associate.minVersion <= inputVersion && associate.maxVersion >= inputVersion) {
                 let associateWrapper = ObjectWrapperManager.findWrapper(associate.name);
                 if (!associateWrapper) {
-                    Log.warn(associate.name + ": wrapper for class not found. continuing to next associate");
+                    Log.warn(associate.name + ": wrapper for associate not found. continuing to next associate");
                 } else {
                     this._fields.push(associateWrapper.getName());
                     associateWrapper.read(this, obj);
@@ -328,6 +335,114 @@ class InputStream {
             }
         });
         return obj
+    }
+
+    readImage(readFromExternal = true) {
+        if (this.getVersion() > 94) {
+            this.readProperty("ClassName");
+            this.inputOperator.readString();
+        }
+        this.readProperty("UniqueID");
+        let id = this.inputOperator.readUInt();
+        if (this._identifierMap[id]) {
+            return this._identifierMap[id];
+        }
+        this.readProperty("FileName");
+        let name = this.inputOperator.readWrappedString();
+        this.readProperty("WriteHint");
+        let writeHint = this.inputOperator.readInt();
+        let decision = this.inputOperator.readInt();
+        let image = null;
+
+        if (decision === IMAGE_INLINE_DATA) {
+            if (this.isBinary()) {
+                let origin = this.inputOperator.readInt();
+                let s = this.inputOperator.readInt();
+                let t = this.inputOperator.readInt();
+                let r = this.inputOperator.readInt();
+                let internalFormat = this.inputOperator.readInt();
+                let pixelFormat = this.inputOperator.readInt();
+                let dataType = this.inputOperator.readInt();
+                let packing = this.inputOperator.readInt();
+                let mode = this.inputOperator.readInt();
+                let size = this.inputOperator.readUInt();
+
+                if (size > 0) {
+                    let data = this.inputOperator.readBuffer(size);
+                    image = new Image();
+                    image.setProperty("Origin", origin);
+                    image.setImage(s, t, r, internalFormat, pixelFormat, dataType, data, 1);
+                }
+                let levelSize = this.inputOperator.readUInt();
+                let levels = [];
+                for (let i = 0; i < levelSize; i++) {
+                    levels.push(this.inputOperator.readUInt());
+                }
+                if ( image && levelSize>0 )
+                    image.setProperty("Levels", levels );
+                readFromExternal = false;
+            } else { //Ascii
+                this.readProperty("Origin");
+                let origin = this.inputOperator.readInt();
+                this.readProperty("Size");
+                let s = this.inputOperator.readInt();
+                let t = this.inputOperator.readInt();
+                let r = this.inputOperator.readInt();
+                this.readProperty("InternalTextureFormat");
+                let internalFormat = this.inputOperator.readInt();
+                this.readProperty("PixelFormat");
+                let pixelFormat = this.inputOperator.readInt();
+                this.readProperty("DataType");
+                let dataType = this.inputOperator.readInt();
+                this.readProperty("Packing");
+                let packing = this.inputOperator.readInt();
+                this.readProperty("AllocationMode");
+                this.readProperty("Data");
+                let levelSize = this.inputOperator.readUInt()-1;
+                this.readBeginBracket();
+                let encodedData = [];
+                 // total size: levelSize+1
+                for(let i = 0 ; i<=levelSize ; i++){
+                    encodedData.push(this.inputOperator.readWrappedString());
+                }
+
+                let levels = [];
+                Base64Encoder.decodeArray(encodedData,levels);
+                levels.pop();
+                this.readEndBracket();
+
+                image = new Image();
+                image.setProperty("Origin", origin);
+                image.setImage(s, t, r, internalFormat, pixelFormat, dataType, data,mode, packing);
+
+                if ( levelSize>0 )
+                    image.setProperty("Levels", levels );
+
+                readFromExternal = false;
+            }
+        } else if (decision === IMAGE_INLINE_FILE){
+            if(this.isBinary()){
+                let size = this.inputOperator.readUInt();
+                let data = this.inputOperator.readBuffer(size);
+                image = new Image();
+                image.setProperty("Data",data);
+                readFromExternal = false;
+            }
+        }
+
+        // let loadedFromCache = false; // not implemented
+
+        if ( readFromExternal && name !== ""){
+            Log.warn("InputStream,readImage - reading from external file - not implemented")
+        }
+
+        //if(loadedFromCache){}else{}
+
+        image = this.readObjectFields("osg::Object", id, image);
+        image.setProperty("Name",name);
+        image.setProperty("WriteHint",name);
+
+        this._identifierMap[id] = image;
     }
 }
 

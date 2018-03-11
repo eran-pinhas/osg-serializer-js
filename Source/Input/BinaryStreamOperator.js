@@ -100,7 +100,7 @@ class BinaryStreamOperator extends StreamOperator{
 
     readDouble() {
         this._position += 8;
-        return this._buffer.readDoubleLE(this._position - 4);
+        return this._buffer.readDoubleLE(this._position - 8);
     }
 
     readChar() {
@@ -122,6 +122,12 @@ class BinaryStreamOperator extends StreamOperator{
         objectGLEnum.value = this.readUInt();
     }
 
+    readBuffer(size){
+        let subBuffer = new Buffer(size);
+        this._buffer.copy(subBuffer,0,this._position,this._position+size);
+        this._position += size;
+        return subBuffer;
+    }
 }
 
 module.exports = BinaryStreamOperator;

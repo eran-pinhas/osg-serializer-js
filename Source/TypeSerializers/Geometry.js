@@ -83,19 +83,19 @@ function getReadArrayListFunction(property) {
     return function (inputStream, geometry) {
         let size = inputStream.inputOperator.readUInt();
         inputStream.readBeginBracket();
-        let array = readArray(inputStream);
+        let ArrayList = [];
         for (let i = 0; i < size; i++) {
             inputStream.readProperty("Data");
             inputStream.readBeginBracket();
 
             let array = readArray(inputStream);
-            geometry[property].push(array);
+            ArrayList.push(array);
 
             inputStream.readEndBracket();
         }
         inputStream.readEndBracket();
 
-        geometry.setProperty(property, array);
+        geometry.setProperty(property, ArrayList);
         inputStream.readEndBracket();
     }
 }

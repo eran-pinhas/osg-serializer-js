@@ -30,7 +30,7 @@ class EnumSerializer extends BaseSerializer {
                 Log.warn("EnumSerializer: failed to find ENUM value " + value + " for serializer " + this.getName() + ". Setting to default value.")
                 value = this._defaultValue;
             }
-            object.setProperty(this.getName(),value);
+            object.setProperty(this.getName(), value);
         }
         else if (inputStream.inputOperator.matchString(this.getName())) {
             let key = inputStream.inputOperator.readString();
@@ -39,7 +39,7 @@ class EnumSerializer extends BaseSerializer {
                 Log.warn("EnumSerializer: failed to find ENUM key " + key + " for serializer " + this.getName() + ". Setting to default value.")
                 value = this._defaultValue;
             }
-            object.setProperty(this.getName(),value);
+            object.setProperty(this.getName(), value);
         }
     }
 }

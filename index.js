@@ -86,3 +86,4 @@ let is = new InputStream(reader);
 let startTime = new Date().getTime();
 let obj = is.readObject();
 console.log( "timeElapsed:",new Date().getTime()-startTime);
+console.log(obj);

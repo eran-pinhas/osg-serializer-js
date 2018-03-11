@@ -9,4 +9,6 @@ require("./Object");
 require("./ShadeModel");
 require("./StateAttribute");
 require("./StateSet");
+require("./Texture");
+require("./Texture2D");
 require("./UserDataContainer");

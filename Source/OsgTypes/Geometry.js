@@ -10,6 +10,8 @@ class Geometry extends Drawable{
 
         this.PrimitiveSetList = [];
 
+        this.TexCoordArray = [];
+        this.VertexAttribArray = [];
     }
 }
 

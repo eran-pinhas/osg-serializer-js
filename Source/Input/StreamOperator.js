@@ -24,6 +24,7 @@ class StreamOperator {
     readGLEnum(objectGLEnum){notImplemented(this.name,"readGLenum")}
     readFloat(){notImplemented(this.name,"readFloat")}
     readDouble(){notImplemented(this.name,"readDouble")}
+    readBuffer(size){notImplemented(this.name,"readBuffer")}
 }
 
 module.exports = StreamOperator;

@@ -1,22 +1,22 @@
 class ObjectGLEnum {
-    constructor(_value) {
-        this.value = _value || 0;
+    constructor(_value = 0) {
+        this.value = _value;
     }
 }
 
 class ObjectMark {
-    constructor(_name, _indent) {
+    constructor(_name, _indent = 0) {
         this.name = _name;
-        this.indent = _indent || 0;
+        this.indent = _indent;
     }
 }
 
 
 class ObjectProperty {
-    constructor(_name, _value, _mapProperty) {
+    constructor(_name, _value = 0, _mapProperty = false) {
         this.name = _name;
-        this.value = _value || 0;
-        this.mapProperty = _mapProperty || false;
+        this.value = _value;
+        this.mapProperty = _mapProperty;
     }
 
     set(_value) {
