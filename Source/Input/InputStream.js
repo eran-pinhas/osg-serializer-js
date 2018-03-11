@@ -57,6 +57,14 @@ class InputStream {
         this.inputOperator.readObjectMark(this.END_BRACKET)
     };
 
+    readMatrix(type){
+        let reader = this.getTypeReader(type);
+        let arr = [];
+        for (let i = 0; i < 16; i++)
+            arr.push(reader());
+        return arr;
+    }
+
     readPrimitiveSet() {
         if (this.getVersion() >= 112)
             return this.readObjectOfType("osg::PrimitiveSet");

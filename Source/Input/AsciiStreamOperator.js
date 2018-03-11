@@ -1,4 +1,5 @@
 const StreamOperator = require('./StreamOperator');
+const ObjectWrapperManager = require('../Serializer/ObjectWrapperManager');
 const GLEnum = require('../Enum/GLEnum');
 const Log = require('../Common/Log');
 
@@ -184,11 +185,11 @@ class AsciiStreamOperator extends StreamOperator {
             Log.warn("AsciiStreamOperator.readObjectMark mismatch: expecting " + mark.name + ", actual: " + word)
         }
     }
+
     readObjectProperty(prop) {
         let value = 0, enumString = this.readString();
         if (prop.mapProperty) {
-            // TODO
-            throw "Unimplemented Method" //https://github.com/openscenegraph/OpenSceneGraph/blob/master/include/osgDB/ObjectWrapper#L179
+            value = ObjectWrapperManager.getValue(prop.name,enumString);
         } else {
             if (prop.name !== enumString)
                 throw ("Unmatched property " + prop.name + " != " + enumString)

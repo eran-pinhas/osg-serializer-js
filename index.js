@@ -7,10 +7,10 @@ const Log = require('./Source/Common/Log');
 
 Log.setLogError();
 
-//let filePath = "Samples/torus.osgt";
+let filePath = "Samples/torus.osgt";
 //let filePath = "Samples/cow.osgt";
 //let filePath = "Samples/tree4.osgb";
-let filePath = "Samples/grass1.osgb";
+//let filePath = "Samples/grass1.osgb";
 //let filePath = "Samples/streetlight.osgb";
 //let filePath = "Samples/cessna.osgb";
 

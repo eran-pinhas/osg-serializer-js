@@ -48,12 +48,6 @@ class ObjectWrapper {
             else {
                 // version mismatch
             }
-            //for ( FinishedObjectReadCallbackList::iterator itr=_finishedObjectReadCallbacks.begin();
-            //      itr!=_finishedObjectReadCallbacks.end();
-            //      ++itr )
-            // {
-            //     (*itr)->objectRead(is, obj);
-            // }
         });
     };
 
