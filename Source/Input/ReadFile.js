@@ -91,7 +91,6 @@ function readFile(path, cb) {
         if (err) cb(err);
         let node;
         try{
-            console.log(err,data);
             node = readBuffer(data);
         } catch (e){
             return cb(e);
