@@ -192,7 +192,7 @@ class AsciiStreamOperator extends StreamOperator {
             value = ObjectWrapperManager.getValue(prop.name,enumString);
         } else {
             if (prop.name !== enumString)
-                throw ("Unmatched property " + prop.name + " != " + enumString)
+                throw `Unmatched property: Expected '${prop.name}' Found ${enumString}`;
         }
         prop.set(value)
     }

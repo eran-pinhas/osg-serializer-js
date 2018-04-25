@@ -10,7 +10,7 @@ let logHandler = null;
 function applyLog(message, level) {
 
     let messagePrefix = "";
-    if (level > LEVELS.LOG) {
+    if (level >= LEVELS.LOG) {
         messagePrefix = Object.keys(LEVELS).filter(key => LEVELS[key] === level) + " : ";
     }
     if (level > Log.level) {

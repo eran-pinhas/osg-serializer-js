@@ -9,15 +9,12 @@ const RenderingHintEnum = require('../Enum/StateSet_RenderingHint');
 const RenderBinModeEnum = require('../Enum/StateSet_RenderBinMode');
 const StateAttributeValueEnum = require('../Enum/StateAttribute_Value');
 const DataTypes = require('../Common/DataTypes');
+
 let objectWrapper = new ObjectWrapper(
     "osg::StateSet",
     ["osg::Object", "osg::StateSet"],
     StateSet
 );
-
-function pushMany(arr, toPush) {
-    Array.prototype.push.apply(arr, toPush)
-}
 
 // TODO ALL of reader functions are not exactly like in OGS repo. maybe need to be rewriten
 // readModeList, readAttributeList, readTextureModeList, readTextureAttributeList,readUniformList,readDefineList
@@ -82,20 +79,21 @@ function readValue(inputStream) {
 
 function readModeList(inputStream, stateSet) {
     let modes = readModes(inputStream);
-    pushMany(stateSet.ModeList, modes);
+    stateSet.ModeList.push(...modes);
     return true;
 }
 
 function readAttributeList(inputStream, stateSet) {
     let modes = readAttributes(inputStream);
-    pushMany(stateSet.AttributeList, modes);
+    stateSet.AttributeList.push(...modes);
 }
 
 function readTextureModeList(inputStream, stateSet) {
     let size = inputStream.inputOperator.readUInt();
+    inputStream.readBeginBracket();
     for (let i = 0; i < size; i++) {
         inputStream.readProperty("Data");
-        pushMany(stateSet.TextureModeList, readModes(inputStream))
+        stateSet.TextureModeList.push(...readModes(inputStream));
     }
 }
 
@@ -104,7 +102,7 @@ function readTextureAttributeList(inputStream, stateSet) {
     inputStream.readBeginBracket();
     for (let i = 0; i < size; i++) {
         inputStream.readProperty("Data");
-        pushMany(stateSet.TextureAttributeList, readAttributes(inputStream))
+        stateSet.TextureAttributeList.push(...readAttributes(inputStream))
     }
     inputStream.readEndBracket();
 }

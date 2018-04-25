@@ -34,7 +34,7 @@ class EnumSerializer extends BaseSerializer {
         }
         else if (inputStream.inputOperator.matchString(this.getName())) {
             let key = inputStream.inputOperator.readString();
-            let value = this._enumMap[value];
+            let value = this._enumMap[key];
             if (!this._enumMap.hasOwnProperty(key)) {
                 Log.warn("EnumSerializer: failed to find ENUM key " + key + " for serializer " + this.getName() + ". Setting to default value.")
                 value = this._defaultValue;
