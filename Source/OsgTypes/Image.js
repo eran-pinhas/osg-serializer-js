@@ -1,4 +1,9 @@
+const Promise = require('bluebird')
 const BufferData = require('./BufferData');
+const fs = require('fs');
+const Log = require('../Common/Log');
+
+let ReadFile = Promise.promisify(fs.readFile);
 
 class Image extends BufferData {
     constructor() {
@@ -20,6 +25,9 @@ class Image extends BufferData {
         this.WriteHint = null;
         this.Type = "Osg::Image";
 
+        this.imagePath = null;
+        this.imagePromise = null;
+
     }
 
     setImage(s, t, r, internalTextureFormat, pixelFormat, dataType, data, aloccationMode, packing = 1, rowLength = 0) {
@@ -34,6 +42,23 @@ class Image extends BufferData {
         this.Mode = aloccationMode;
         this.RowLength = rowLength;
 
+    }
+
+    getImageData() {
+        if (this.Data)
+            return Promise.resolve(this.Data);
+        if (this.imagePromise)
+            return this.imagePromise;
+        if (!this.imagePath) {
+            Log.fatal("No File name found for image")
+            return Promise.reject("No File name found for image");
+        }
+
+        this.imagePromise = ReadFile(this.imagePath).then(data => {
+            this.Data = data;
+            return data;
+        })
+        return this.imagePromise;
     }
 }
 

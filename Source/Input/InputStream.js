@@ -7,16 +7,19 @@ const {ObjectProperty} = require('../Common/DataTypes');
 const Log = require('../Common/Log');
 const Base64Encoder = require('../Common/Base64Encoder');
 
+const path = require('path');
+
 const IMAGE_INLINE_DATA = 0;
 const IMAGE_INLINE_FILE = 1;
 const IMAGE_EXTERNAL = 2;
 const IMAGE_WRITE_OUT = 3;
 
 class InputStream {
-    constructor(inputOperator) {
+    constructor(path, inputOperator) {
         /**
          * @type StreamOperator
          */
+        this.filePath = path;
         this.inputOperator = inputOperator;
         this._identifierMap = {};
         this._arrayMap = {};
@@ -346,6 +349,7 @@ class InputStream {
     }
 
     readImage(readFromExternal = true) {
+
         if (this.getVersion() > 94) {
             this.readProperty("ClassName");
             this.inputOperator.readString();
@@ -441,7 +445,8 @@ class InputStream {
         // let loadedFromCache = false; // not implemented
 
         if ( readFromExternal && name !== ""){
-            Log.warn("InputStream,readImage - reading from external file - not implemented")
+            image = new Image();
+            image.imagePath = path.join(path.dirname(this.filePath),name);
         }
 
         //if(loadedFromCache){}else{}
@@ -451,6 +456,8 @@ class InputStream {
         image.setProperty("WriteHint",name);
 
         this._identifierMap[id] = image;
+
+        return image;
     }
 }
 

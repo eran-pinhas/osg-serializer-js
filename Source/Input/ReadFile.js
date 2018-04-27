@@ -23,7 +23,7 @@ const WriteType = {
  * @param {buffer} buffer
  * @return {object} the serialized node
  */
-function readBuffer(buffer) {
+function readBuffer(buffer,path) {
 
     const low = buffer.readUInt32LE(0);
     const high = buffer.readUInt32LE(4);
@@ -70,7 +70,7 @@ function readBuffer(buffer) {
     }
     reader.version = openscenegraph_soversion;
 
-    let inputStream = new InputStream(reader);
+    let inputStream = new InputStream(path,reader);
     let startTime = new Date().getTime();
     let obj = inputStream.readObject();
     Log("timeElapsed:", new Date().getTime() - startTime);
@@ -91,7 +91,7 @@ function readFile(path, cb) {
         if (err) cb(err);
         let node;
         try{
-            node = readBuffer(data);
+            node = readBuffer(data,path);
         } catch (e){
             return cb(e);
         }

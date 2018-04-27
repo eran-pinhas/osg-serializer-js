@@ -18,6 +18,6 @@
   "author": "Eran Pinhas",
   "license": "ISC",
   "dependencies": {
-    "assert": "^1.4.1"
+    "bluebird": "^3.5.1"
   }
 }

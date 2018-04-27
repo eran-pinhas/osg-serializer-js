@@ -10,13 +10,13 @@ class ObjectSerializer extends BaseSerializer {
         if (inputStream.isBinary()) {
             let hasObject = inputStream.inputOperator.readBool();
             if (hasObject) {
-                object[this._name] = inputStream.readObjectOfType()
+                object.setProperty(this._name, inputStream.readObjectOfType())
             }
         } else if (inputStream.inputOperator.matchString(this._name)) {
             let hasObject = inputStream.inputOperator.readBool();
             if (hasObject) {
                 inputStream.readBeginBracket();
-                object[this._name] = inputStream.readObjectOfType()
+                object.setProperty(this._name, inputStream.readObjectOfType())
                 inputStream.readEndBracket();
             }
         }

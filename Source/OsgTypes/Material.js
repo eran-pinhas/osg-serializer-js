@@ -23,6 +23,7 @@ class Material extends StateAttribute {
         this.ShininessFront = 0;
         this.ShininessBack = 0;
 
+        this. ColorMode = null;
         this.Type = "Osg::Material";
     }
 
